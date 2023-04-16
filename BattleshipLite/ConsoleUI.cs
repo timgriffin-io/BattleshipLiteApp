@@ -30,6 +30,7 @@ internal static class ConsoleUI
 
         SetPlayerName(player, defaultName);
         GameLogic.InitializeShotGrid(player);
+        DisplayGridLocations();
         PlacePlayerShips(player);
         Console.Clear();
 
@@ -82,11 +83,12 @@ internal static class ConsoleUI
         Console.WriteLine();
     }
 
-    internal static bool PlayAgain()
+    internal static bool PlayAgain(Player winner)
     {
         Console.WriteLine($"Start a new game?");
         Console.Write($"Enter 'yes' to continue: ");
         var input = Console.ReadLine();
+        CheckForUncle(input, null);
         return input.ToUpper() == "YES";
     }
 
@@ -101,13 +103,13 @@ internal static class ConsoleUI
         Console.WriteLine("Thank you for playing!");
     }
 
-    private static void CheckForUncle(string input, Player activePlayer)
+    private static void CheckForUncle(string input, Player player)
     {
         if (input.ToUpper() == "UNCLE")
         {
             var defaulColor = Console.ForegroundColor;
             Console.Clear();
-            Console.WriteLine($"{activePlayer.PlayerName} said uncle...LOL", Console.ForegroundColor = ConsoleColor.Magenta);
+            Console.WriteLine($"{player?.PlayerName ?? "Quitters"} said uncle...LOL", Console.ForegroundColor = ConsoleColor.Magenta);
             Console.ForegroundColor = defaulColor;
             Console.WriteLine();
             Environment.Exit(0);

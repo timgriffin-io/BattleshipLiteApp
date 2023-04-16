@@ -34,7 +34,8 @@ while(playAgain == true)
         }
     }
 
-    playAgain = ConsoleUI.PlayAgain();
+    //null = quitters
+    playAgain = ConsoleUI.PlayAgain(null);
     ConsoleUI.ClearGame();
 }
 
